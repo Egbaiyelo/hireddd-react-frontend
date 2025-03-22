@@ -30,6 +30,6 @@ module.exports = {
   }
 };
 module.exports = {
-  preset: 'jest-playwright-preset',  // Alternatively, you can use `jest-puppeteer`
+  preset: 'jest-puppeteer-preset',  // Alternatively, you can use `jest-puppeteer`
   testEnvironment: 'jest-environment-puppeteer',  // Set the environment to Puppeteer
 };
