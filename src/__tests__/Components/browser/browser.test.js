@@ -5,12 +5,20 @@ describe('Cross-Browser Testing with Jest and Puppeteer', () => {
   let browser;
 
   beforeAll(async () => {
-    // Set up the browser instance for Chrome (can also use Firefox or Edge)
-    browser = await puppeteer.launch({
-      headless: true,  // Run in headless mode (no UI)
-      executablePath: '/usr/bin/google-chrome-stable',  // For Chrome
-      // Alternatively, use Firefox or Edge if you prefer
-    });
+    // Set up Puppeteer browser instance based on the matrix (Chrome, Firefox, WebKit)
+    if (process.env.BROWSER === 'firefox') {
+      browser = await puppeteer.launch({
+        headless: true,
+        executablePath: '/usr/bin/firefox',  // Path for Firefox
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],  // Firefox requires these args in CI
+      });
+    } else {
+      browser = await puppeteer.launch({
+        headless: true,
+        executablePath: '/usr/bin/google-chrome-stable',  // Path for Chrome
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],  // Required in CI
+      });
+    }
   });
 
   afterAll(async () => {

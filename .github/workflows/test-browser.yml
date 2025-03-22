@@ -23,10 +23,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  # Use Node.js version 14
+          node-version: '14'  
 
       - name: Install dependencies
         run: npm install  # Install dependencies from package.json
+
+      - name: Start the local server
+        run: |
+          # Start the server in the background (e.g., for a React app)
+          npm start &
+
+          # Wait for the server to be ready (you can adjust this depending on your app)
+          npx wait-on http://localhost:3000  # Wait until the server is running
 
       - name: Run Jest tests on ${{ matrix.browser }}
         run: |
