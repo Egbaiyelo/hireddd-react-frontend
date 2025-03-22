@@ -1,34 +1,24 @@
-const puppeteer = require('puppeteer');  // Import Puppeteer for browser automation
-const { jest } = require('@jest/globals');
+const { chromium, firefox, webkit } = require('playwright');
 
-describe('Cross-Browser Testing with Jest and Puppeteer', () => {
+describe('Cross-Browser Testing with Playwright', () => {
   let browser;
+  let page;
 
   beforeAll(async () => {
-    // Set up Puppeteer browser instance based on the matrix (Chrome, Firefox, WebKit)
-    if (process.env.BROWSER === 'firefox') {
-      browser = await puppeteer.launch({
-        headless: true,
-        executablePath: '/usr/bin/firefox',  // Path for Firefox
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],  // Firefox requires these args in CI
-      });
-    } else {
-      browser = await puppeteer.launch({
-        headless: true,
-        executablePath: '/usr/bin/google-chrome-stable',  // Path for Chrome
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],  // Required in CI
-      });
-    }
+    const browserType = process.env.BROWSER || 'chromium'; // Use the matrix browser
+    browser = await { chromium, firefox, webkit }[browserType].launch({
+      headless: true,
+    });
+    page = await browser.newPage();
   });
 
   afterAll(async () => {
-    await browser.close();  // Close the browser after tests
+    await browser.close();
   });
 
   test('should load the page and check title', async () => {
-    const page = await browser.newPage();
-    await page.goto('https://example.com');  // Navigate to the page
-    const title = await page.title();  // Get the title of the page
-    expect(title).toBe('Example Domain');  // Check the title
+    await page.goto('https://example.com'); // Navigate to the page
+    const title = await page.title(); // Get page title
+    expect(title).toBe('Example Domain'); // Check the title
   });
 });

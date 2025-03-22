@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        browser: [chrome, firefox, webkit]  # Test on Chrome, Firefox, and WebKit (Safari)
+        browser: [chromium, firefox, webkit]  # Playwright browsers
 
     steps:
       - name: Checkout code
@@ -23,29 +23,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  
+          node-version: '16'  # Use Node.js 16+ for Playwright
 
       - name: Install dependencies
         run: npm install  # Install dependencies from package.json
 
+      - name: Install Playwright Browsers
+        run: npx playwright install  # Install Chromium, Firefox, WebKit
+
       - name: Start the local server
         run: |
-          # Start the server in the background (e.g., for a React app)
           npm start &
-
-          # Wait for the server to be ready (you can adjust this depending on your app)
-          npx wait-on http://localhost:3000  # Wait until the server is running
+          npx wait-on http://localhost:3000  # Wait for server to be ready
 
       - name: Run Jest tests on ${{ matrix.browser }}
         run: |
-          # Install Puppeteer with the appropriate browser
-          if [ "${{ matrix.browser }}" == "chrome" ]; then
-            npx puppeteer install --chrome;  # Install Chrome
-          elif [ "${{ matrix.browser }}" == "firefox" ]; then
-            npx puppeteer install --firefox;  # Install Firefox
-          elif [ "${{ matrix.browser }}" == "webkit" ]; then
-            npx puppeteer install --webkit;  # Install WebKit (Safari)
-          fi
-
-          # Run the Jest tests for the current browser
-          npx jest --testEnvironment=puppeteer --browser=${{ matrix.browser }}  # Run tests
+          export BROWSER=${{ matrix.browser }}
+          npx jest --config=jest-playwright.config.js

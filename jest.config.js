@@ -30,6 +30,6 @@ module.exports = {
   }
 };
 module.exports = {
-  preset: 'jest-puppeteer-preset',  // Alternatively, you can use `jest-puppeteer`
-  testEnvironment: 'jest-environment-puppeteer',  // Set the environment to Puppeteer
+  preset: 'jest-playwright-preset',
+  testMatch: ['**/*.test.js'], // Run files ending in .test.js
 };

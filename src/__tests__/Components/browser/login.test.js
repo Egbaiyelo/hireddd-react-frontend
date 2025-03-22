@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');  // Import Puppeteer
+// const puppeteer = require('puppeteer');  // Import Puppeteer
 
 describe('Sign-Up Flow', () => {
   let browser;
