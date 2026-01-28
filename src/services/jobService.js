@@ -8,6 +8,7 @@ const CANDIDATE_API_URL = process.env.REACT_APP_PUBLIC_URL + "/jobCandidates";
 // Please dont delete anything when running, they are capitalized on display
 // If you want to add hyphen do so in frontend
 const jobTypes = ["fulltime", "parttime", "contract", "remote", "hybrid"];
+const statuses = ["shortlisted", "interviewed", "assessed", "hired", "rejected"]
 
 //-- Jobs --
 // Fetch all jobs by orgID
@@ -27,6 +28,15 @@ const getJobById = async (jobId) => {
     return response.data;
   } catch (error) {
     throw new Error("JobService: Error fetching job by ID");
+  }
+};
+
+const getJob = async (queryData) => {
+  try {
+    const response = await axios.get(`${API_URL}/${queryData}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("JobService: Error fetching job");
   }
 };
 
@@ -153,6 +163,7 @@ const jobService = {
   getJobsForTalent,
 //   deleteCandidate,
   jobTypes,
+  statuses,
 };
 
 export default jobService;

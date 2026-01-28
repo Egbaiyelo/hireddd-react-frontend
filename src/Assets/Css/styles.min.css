@@ -8934,6 +8934,33 @@ button.edit-button.profile-summry-close-button {
 
 }
 
+.edit-job-tab{
+  background-color: white;
+  border-radius: .5em;
+  margin: .6em .25em;
+}
+
+.show-job-button{
+  width: 7.5em;
+}
+.show-job-title{
+  font-size:large;
+}
+.show-job-sidebar{
+  width: 275px;
+  padding: 38px 15px 38px 20px;
+  box-sizing: border-box;
+  background-color: var(--hr_white);
+  box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  /* position: sticky; */
+  top: 50px;
+}
+.show-job-right{
+  width: calc(100% - 275px);
+
+}
+
 /*  */
 
 
@@ -9099,3 +9126,35 @@ button.flash-close {
   user-select: none; /* Prevents copying */
 }
 
+/* Override for SocialMedia modal buttons */
+.social-media-modal-actions {
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 50px; /* Smaller gap between buttons */
+}
+
+.social-media-modal-actions .cancel-btn{
+  width: 35%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 2px solid #6b46c1;
+  background: white;
+  color: #6b46c1;
+  margin-left: 80px;
+
+
+}
+.social-media-modal-actions .save-btn {
+  width: 35%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  background: #6b46c1;
+  color: white;
+  border: none;
+  margin-right: 80px;
+}

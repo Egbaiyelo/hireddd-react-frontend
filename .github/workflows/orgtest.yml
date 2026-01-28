@@ -1,0 +1,44 @@
+name: Run Jest Tests with testPathPattern
+
+on:
+  push:
+    branches:
+      - COIS-4000-Students 
+    paths:
+      - '**/Org*'
+      - '**/*Org'
+      - '**/Job*'
+      - '**/*Job' 
+  pull_request:
+    branches:
+      - COIS-4000-Students 
+    paths:
+      - '**/Org*'
+      - '**/*Org'
+      - '**/Job*'
+      - '**/*Job' 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14' 
+
+    - name: Install dependencies
+      run: npm install  
+
+    - name: Run Jest testPathPattern OrgDash
+      run: npm test -- --testPathPattern=OrgDash 
+
+    - name:  Run Jest testPathPattern Jobs <Dependencies>
+      run: npm test -- --testPathPattern=Jobs
+
+    # - name:  Run Jest testPathPattern Jobs <Dependencies>
+    #   run: npm test -- --testPathPattern=TalentJobs
